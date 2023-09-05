@@ -66,14 +66,26 @@ const CarouselMkr = ({ lang, setPicsShow, picsShow }: Props) => {
       <ModalHeader closeButton />
       <Modal.Body
         style={{
-          maxHeight: "90vh",
+          maxHeight: "80vh",
         }}
       >
         <Carousel interval={null} indicators={false} fade>
           {pics.map((pic) => {
             return (
-              <Carousel.Item key={pic.key}>
-                <Image fluid src={pic.path} alt={pic.caption} />
+              <Carousel.Item
+                key={pic.key}
+                className="d-flex justify-content-center"
+                style={{
+                  maxHeight: "80vh",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <Image
+                  src={pic.path}
+                  alt={pic.caption}
+                  style={{ maxHeight: "80vh", alignSelf: "center" }}
+                />
                 <Carousel.Caption>
                   <h3>{pic.caption}</h3>
                 </Carousel.Caption>

@@ -27,10 +27,22 @@ div.translucent {
 }
 
 /*This is the gradient for the offcanvas element. I set it to be active only when it is collapsed otherwise the nav looks junky AF*/
-@media (max-width: 575px) {
+@media (max-width: 576px) {
     .offcanvas{
         background: rgb(200,245,195) !important;
     background: linear-gradient(0deg, rgba(195,245,243,1) 0%, rgba(189,240,164,1) 100%) !important;
     }
 }
 
+@media (min-height: 701px) {
+    .autoMargin {
+        margin-top: auto !important;
+        margin-bottom: auto !important;
+    }
+}
+
+@media (max-height: 700px) {
+    .autoMargin {
+        margin-bottom: auto !important;
+    }
+}
