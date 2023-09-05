@@ -27,7 +27,7 @@ const HomePage = ({ lang, page }: Props) => {
             id="autoText"
             //Don't judge me for this. I am not proud of it but it works
             key={reset ? 1 : 0}
-            className="text-center my-auto"
+            className="text-center autoMargin"
             style={{ height: "15vh" }}
           >
             <TypeAnimation
@@ -50,7 +50,7 @@ const HomePage = ({ lang, page }: Props) => {
                   ? "Welcome to my \n About Page"
                   : "Καλώς ήρθες στο \n About Page μου",
               ]}
-              wrapper="h1"
+              wrapper="p"
               className="display-3"
             ></TypeAnimation>
           </Col>
@@ -60,7 +60,8 @@ const HomePage = ({ lang, page }: Props) => {
               style={{
                 filter: blur ? "blur(20px)" : "none",
                 transition: blur ? "none" : "filter 0.3s ease-out",
-                width: "100%",
+                maxWidth: "100%",
+                maxHeight: "70vh",
               }}
             />
           </Col>
