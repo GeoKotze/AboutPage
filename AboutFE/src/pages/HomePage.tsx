@@ -51,7 +51,7 @@ const HomePage = ({ lang, page }: Props) => {
                   : "Καλώς ήρθες στο \n About Page μου",
               ]}
               wrapper="p"
-              className="display-3"
+              className="autoTextSize"
             ></TypeAnimation>
           </Col>
           <Col sm={6}>

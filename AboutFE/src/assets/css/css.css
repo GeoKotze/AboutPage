@@ -34,15 +34,38 @@ div.translucent {
     }
 }
 
-@media (min-height: 701px) {
+
+.autoMargin {
+    margin-bottom: auto !important;
+}
+
+.autoTextSize {
+    font-size: 4.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+@media (min-height: 700px) {
     .autoMargin {
         margin-top: auto !important;
         margin-bottom: auto !important;
     }
 }
 
+@media (max-width: 576px) {
+    .autoTextSize {
+        font-size: calc(1.575rem + 3.9vw) !important;
+        font-weight: 300;
+        line-height: 1.2;
+    }
+}   
+
 @media (max-height: 700px) {
-    .autoMargin {
-        margin-bottom: auto !important;
+    .autoTextSize {
+        font-size: calc(1.575rem + 3.9vh) !important;
+        font-weight: 300;
+        line-height: 1.2;
     }
 }
+  
+
