@@ -26,42 +26,47 @@ const HomePage = ({ lang, page }: Props) => {
             sm={6}
             id="autoText"
             //Don't judge me for this. I am not proud of it but it works
-            key={reset ? 1 : 0}
+            key={reset ? 1000 : 1001}
             className="text-center autoMargin"
-            style={{ height: "15vh" }}
+            style={
+              lang === "en" ? { maxHeight: "15vh" } : { maxHeight: "20vh" }
+            }
           >
-            <TypeAnimation
-              cursor={true}
-              style={{ whiteSpace: "pre-line" }}
-              sequence={[
-                lang === "en" ? "Hello!" : "Γεια!",
-                1000,
-                lang === "en" ? "Welcome to my \n" : "Καλώς ήρθες στο \n",
-                200,
-                lang === "en"
-                  ? "Welcome to my \n Portfolio"
-                  : "Καλώς ήρθες στο \n Πορτφόλιο",
-                1000,
-                lang === "en"
-                  ? "Welcome to my \n Hobby"
-                  : "Καλώς ήρθες στο \n Χόμπυ",
-                1000,
-                lang === "en"
-                  ? "Welcome to my \n About Page"
-                  : "Καλώς ήρθες στο \n About Page μου",
-              ]}
-              wrapper="p"
-              className="autoTextSize"
-            ></TypeAnimation>
+            <div className="smallWidthTxtBox">
+              <TypeAnimation
+                cursor={true}
+                style={{
+                  whiteSpace: "pre-line",
+                }}
+                sequence={[
+                  lang === "en" ? "Hello!" : "Γεια!",
+                  1000,
+                  lang === "en" ? "Welcome to my \n" : "Καλώς ήρθες στο \n",
+                  200,
+                  lang === "en"
+                    ? "Welcome to my \n Portfolio"
+                    : "Καλώς ήρθες στο \n Πορτφόλιο",
+                  1000,
+                  lang === "en"
+                    ? "Welcome to my \n Hobby"
+                    : "Καλώς ήρθες στο \n Χόμπυ",
+                  1000,
+                  lang === "en"
+                    ? "Welcome to my \n About Page"
+                    : "Καλώς ήρθες στο \n About Page μου",
+                ]}
+                className="autoTextSize smallWidthTxt"
+              ></TypeAnimation>
+            </div>
           </Col>
           <Col sm={6}>
             <img
               src={src.toString()}
+              className="smallWidthImg"
               style={{
                 filter: blur ? "blur(20px)" : "none",
                 transition: blur ? "none" : "filter 0.3s ease-out",
-                maxWidth: "100%",
-                maxHeight: "70vh",
+                width: "100%",
               }}
             />
           </Col>

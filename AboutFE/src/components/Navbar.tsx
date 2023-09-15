@@ -185,7 +185,10 @@ const MainNavbar = ({
                           <Dropdown.Item
                             href=""
                             key={language}
-                            onClick={() => setLang(language)}
+                            onClick={() => {
+                              setLang(language);
+                              setOffcanvasOn(false);
+                            }}
                           >
                             <img
                               id={language}

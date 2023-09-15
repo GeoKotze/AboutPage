@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Container, TabContainer, TabContent, TabPane } from "react-bootstrap";
 import MainNavbar from "./components/Navbar";
-import { AboutPage } from "./pages/AboutPage";
-import { ContactPage } from "./pages/ContactPage";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
 import HomePage from "./pages/HomePage";
 
 function App() {

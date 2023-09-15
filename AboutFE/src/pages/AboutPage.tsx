@@ -7,11 +7,13 @@ interface Props {
   picsShow: boolean;
 }
 
-export function AboutPage({ lang, setPicsShow, picsShow }: Props) {
+const AboutPage = ({ lang, setPicsShow, picsShow }: Props) => {
   return (
     <>
       <ParagraphMkr lang={lang} setPicsShow={setPicsShow} />
       <CarouselMkr lang={lang} setPicsShow={setPicsShow} picsShow={picsShow} />
     </>
   );
-}
+};
+
+export default AboutPage;

@@ -1,13 +1,13 @@
 import { Form, Button, Alert } from "react-bootstrap";
-import { useState, useRef } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
-import ReCAPTCHA from "react-google-recaptcha";
+// import ReCAPTCHA from "react-google-recaptcha";
 
 interface Props {
   lang: string;
 }
 
-export function ContactPage({ lang }: Props) {
+const ContactPage = ({ lang }: Props) => {
   const [post, setPost] = useState({
     name: "",
     company: "",
@@ -20,10 +20,8 @@ export function ContactPage({ lang }: Props) {
   //This is to ensure no double submits
   const [disabled, setDisabled] = useState(false);
 
-  const recaptchaRef = useRef<any>(null);
-
   //This updates the proper attribute of the object every time the user types in a field
-  function handleChange(e: any) {
+  function handleChange(e: ChangeEvent<HTMLTextAreaElement>) {
     setPost({ ...post, [e.target.id]: e.target.value });
   }
 
@@ -35,13 +33,15 @@ export function ContactPage({ lang }: Props) {
   });
 
   //This updates the token attribute of the object every time the user passes the captcha
-  function captcha() {
-    setPost({ ...post, token: recaptchaRef.current.getValue() });
-  }
+  // function captcha() {
+  //   recaptchaRef.current !== null &&
+  //     setPost({ ...post, token: recaptchaRef.current.getValue() });
+  // }
 
   //This function is called when the user presses the submit button
   //e.preventDefault() is starting to become my favorite function
-  function postForm(e: any) {
+  function postForm(e: FormEvent<HTMLFormElement>) {
+    console.log(e);
     setDisabled(true);
     e.preventDefault();
     let message = "";
@@ -120,9 +120,16 @@ export function ContactPage({ lang }: Props) {
           code: res.status,
           message: res.data,
         });
-        recaptchaRef.current.reset();
+        // recaptchaRef.current.reset();
         setDisabled(false);
-        e.target.reset();
+        setPost({
+          name: "",
+          company: "",
+          email: "",
+          message: "",
+          lang: lang,
+          token: "",
+        });
       })
       .catch((err) => {
         setShowAlert({
@@ -130,9 +137,8 @@ export function ContactPage({ lang }: Props) {
           code: err.response.status,
           message: err.response.data,
         });
-        recaptchaRef.current.reset();
+        // recaptchaRef.current.reset();
         setDisabled(false);
-        e.target.reset();
       });
   }
 
@@ -143,6 +149,7 @@ export function ContactPage({ lang }: Props) {
         <Form.Group className="mb-3" onChange={handleChange} controlId="email">
           <Form.Label>{lang === "en" ? `Email*` : `Email*`}</Form.Label>
           <Form.Control
+            value={post.email}
             required
             type="email"
             placeholder={
@@ -153,6 +160,7 @@ export function ContactPage({ lang }: Props) {
         <Form.Group className="mb-3" onChange={handleChange} controlId="name">
           <Form.Label>{lang === "en" ? "Name*" : "Όνομα*"}</Form.Label>
           <Form.Control
+            value={post.name}
             required
             type="text"
             placeholder={
@@ -169,6 +177,7 @@ export function ContactPage({ lang }: Props) {
         >
           <Form.Label>{lang === "en" ? "Company" : "Εταιρία"}</Form.Label>
           <Form.Control
+            value={post.company}
             type="text"
             placeholder={
               lang === "en" ? "In case you are from HR" : "Αν είσαι από το HR"
@@ -182,6 +191,7 @@ export function ContactPage({ lang }: Props) {
         >
           <Form.Label>{lang === "en" ? "Message*" : "Μήνημα*"}</Form.Label>
           <Form.Control
+            value={post.message}
             required
             as="textarea"
             rows={3}
@@ -192,13 +202,13 @@ export function ContactPage({ lang }: Props) {
             }
           />
         </Form.Group>
-        <Form.Group>
+        {/* <Form.Group>
           <ReCAPTCHA
             ref={recaptchaRef}
             sitekey="6Lf0gGUnAAAAAH-_0Aar9uen09bSCovVc8EvxEBA"
             onChange={captcha}
           />
-        </Form.Group>
+        </Form.Group> */}
         <Button
           variant="success"
           type="submit"
@@ -226,4 +236,6 @@ export function ContactPage({ lang }: Props) {
       </Alert>
     </>
   );
-}
+};
+
+export default ContactPage;

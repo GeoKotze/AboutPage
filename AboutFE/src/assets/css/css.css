@@ -13,7 +13,7 @@ div.transparent div.modal-content div.modal-header {
     padding-top: 0% !important;
 }
 
-div.translucent {
+.translucent {
     background-color: rgba(255, 255, 255, 0.3) !important;
 }
 
@@ -24,6 +24,30 @@ div.translucent {
             width: 81%;
         }
 
+}
+
+@media (max-width: 576px) {
+    .smallWidthImg{
+        position: absolute;
+        top: 10%;
+        width: 80% !important;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        margin: auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .smallWidthTxt{
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+}
+
+@media (max-width: 576px) {
+    .smallWidthTxtBox{
+        margin-top: 60%;
+    }
 }
 
 /*This is the gradient for the offcanvas element. I set it to be active only when it is collapsed otherwise the nav looks junky AF*/
@@ -39,11 +63,6 @@ div.translucent {
     margin-bottom: auto !important;
 }
 
-.autoTextSize {
-    font-size: 4.5rem;
-    font-weight: 300;
-    line-height: 1.2;
-}
 
 @media (min-height: 700px) {
     .autoMargin {
@@ -52,7 +71,22 @@ div.translucent {
     }
 }
 
+
+.autoTextSize {
+    font-size: 4.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
 @media (max-width: 576px) {
+    .autoTextSize {
+        font-size: calc(1.575rem + 3.9vw) !important;
+        font-weight: 300;
+        line-height: 1.5;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 1200px) {
     .autoTextSize {
         font-size: calc(1.575rem + 3.9vw) !important;
         font-weight: 300;
@@ -67,5 +101,6 @@ div.translucent {
         line-height: 1.2;
     }
 }
+
   
 
