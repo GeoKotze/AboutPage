@@ -1,7 +1,13 @@
 import { Form, Button, Alert } from "react-bootstrap";
-import { useState, ChangeEvent, FormEvent } from "react";
+import {
+  useState,
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useEffect,
+} from "react";
 import axios from "axios";
-// import ReCAPTCHA from "react-google-recaptcha";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 interface Props {
   lang: string;
@@ -25,6 +31,8 @@ const ContactPage = ({ lang }: Props) => {
     setPost({ ...post, [e.target.id]: e.target.value });
   }
 
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
   //an object that holds the state of the alert that pops up when needed
   const [showAlert, setShowAlert] = useState({
     show: false,
@@ -32,20 +40,30 @@ const ContactPage = ({ lang }: Props) => {
     message: "",
   });
 
-  //This updates the token attribute of the object every time the user passes the captcha
-  // function captcha() {
-  //   recaptchaRef.current !== null &&
-  //     setPost({ ...post, token: recaptchaRef.current.getValue() });
-  // }
+  const clearForm = () => {
+    setPost({ ...post, name: "", email: "", company: "", message: "" });
+  };
+
+  const handleCaptcha = useCallback(async () => {
+    if (!executeRecaptcha) {
+      console.log("Recaptcha not yet available");
+      return;
+    }
+    const token = await executeRecaptcha("submit");
+    setPost({ ...post, token: token });
+  }, [executeRecaptcha]);
+
+  useEffect(() => {
+    handleCaptcha();
+  }, [handleCaptcha]);
 
   //This function is called when the user presses the submit button
   //e.preventDefault() is starting to become my favorite function
-  function postForm(e: FormEvent<HTMLFormElement>) {
-    console.log(e);
+  const postForm = (e: FormEvent<HTMLFormElement>) => {
     setDisabled(true);
     e.preventDefault();
-    let message = "";
 
+    let message = "";
     //in case any cheeky user tries to bypass the required attributes of the form
     //assuming that anyone that bypasses the required attributes is doing it on purpose there is a shift in tone in the alert message
     if (post.token === "") {
@@ -122,14 +140,7 @@ const ContactPage = ({ lang }: Props) => {
         });
         // recaptchaRef.current.reset();
         setDisabled(false);
-        setPost({
-          name: "",
-          company: "",
-          email: "",
-          message: "",
-          lang: lang,
-          token: "",
-        });
+        clearForm();
       })
       .catch((err) => {
         setShowAlert({
@@ -137,10 +148,10 @@ const ContactPage = ({ lang }: Props) => {
           code: err.response.status,
           message: err.response.data,
         });
-        // recaptchaRef.current.reset();
+        clearForm();
         setDisabled(false);
       });
-  }
+  };
 
   return (
     <>

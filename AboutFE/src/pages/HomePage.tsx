@@ -59,14 +59,17 @@ const HomePage = ({ lang, page }: Props) => {
               ></TypeAnimation>
             </div>
           </Col>
-          <Col sm={6}>
+          <Col sm={6} className="autoMargin" style={{ maxHeight: "100%" }}>
             <img
               src={src.toString()}
               className="smallWidthImg"
               style={{
                 filter: blur ? "blur(20px)" : "none",
                 transition: blur ? "none" : "filter 0.3s ease-out",
-                width: "100%",
+                //I want the image to never be bigger than the heigth if the screen
+                //To do that,
+                maxWidth: "100%",
+                maxHeight: "70vh",
               }}
             />
           </Col>

@@ -4,6 +4,7 @@ import MainNavbar from "./components/Navbar";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import HomePage from "./pages/HomePage";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 function App() {
   const [page, setPage] = useState<string>("home");
@@ -36,7 +37,7 @@ function App() {
   });
 
   return (
-    <>
+    <GoogleReCaptchaProvider reCaptchaKey="6LfoXDEoAAAAAKEcXUfISqSKMZQvIrbQ_7c94Ap-">
       {/* Here is load the navbar with all the parameters needed to set it up */}
       <MainNavbar
         logo="/bash.svg"
@@ -68,7 +69,7 @@ function App() {
           </TabContent>
         </TabContainer>
       </Container>
-    </>
+    </GoogleReCaptchaProvider>
   );
 }
 
