@@ -66,8 +66,6 @@ const HomePage = ({ lang, page }: Props) => {
               style={{
                 filter: blur ? "blur(20px)" : "none",
                 transition: blur ? "none" : "filter 0.3s ease-out",
-                //I want the image to never be bigger than the heigth if the screen
-                //To do that,
                 maxWidth: "100%",
                 maxHeight: "70vh",
               }}

@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { Container, TabContainer, TabContent, TabPane } from "react-bootstrap";
 import MainNavbar from "./components/Navbar";
+
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import HomePage from "./pages/HomePage";
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+import ProjectsPage from "./pages/ProjectsPage";
 
 function App() {
   const [page, setPage] = useState<string>("home");
@@ -65,6 +68,9 @@ function App() {
             </TabPane>
             <TabPane eventKey="contact">
               <ContactPage lang={lang} />
+            </TabPane>
+            <TabPane eventKey="projects">
+              <ProjectsPage lang={lang} setPage={setPage} />
             </TabPane>
           </TabContent>
         </TabContainer>
