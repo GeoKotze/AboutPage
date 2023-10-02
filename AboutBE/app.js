@@ -1,12 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
 const path = require("path");
 const axios = require("axios");
 const https = require("https");
 const fs = require("fs");
+const mongo = require("mongodb");
 
 //load the env file
 dotenv.config({ path: path.join(__dirname, "creds.env") });
@@ -14,22 +14,10 @@ dotenv.config({ path: path.join(__dirname, "creds.env") });
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.json());
 
-//next i need to configure the dotenv module
-dotenv.config();
-
-//the nodemailer will connect to my domain autoreply email to do the business
-const transporter = nodemailer.createTransport({
-  host: process.env.HOST,
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.EMAIL,
-    pass: process.env.PASSWORD,
-  },
-});
+//this is the db connection string
+const dburi = process.env.MONGO_URI;
 
 //the point of this is to make sure that the content type is application/json
 //the container is exposed only to it's own network but better be safe than sorry
@@ -42,16 +30,31 @@ const options = {
 };
 
 const PORT = process.env.PORT || 8080;
+
 https.createServer(options, app).listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
+});
+
+//the nodemailer will connect to my domain autoreply email to do the business
+
+const transporter = nodemailer.createTransport({
+  host: process.env.HOST,
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD,
+  },
 });
 
 app.post("/send", (req, res) => {
   const { name, email, company, message, lang, token } = req.body;
 
+  //this is for me
   const date = new Date().toLocaleString("en-GB", {
-    timeZone: "Europe/Athens",
+    timezone: "Europe/Athens",
   });
+
   const mailMe = {
     from: process.env.EMAIL,
     to: process.env.MYEMAIL,
@@ -132,5 +135,27 @@ app.post("/send", (req, res) => {
     } else if (lang === "gr") {
       res.status(500).send("Κάτι πήγε στραβά.");
     }
+  }
+});
+
+//this is the route for the projects
+
+app.get("/projects", async (req, res) => {
+  try {
+    const client = await mongo.MongoClient.connect(dburi, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    console.log("connected to db");
+
+    const db = client.db("about");
+    const projects = await db.collection("projects").find().toArray();
+    console.log(projects);
+
+    res.status(200).json(projects);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Something went wrong");
   }
 });
