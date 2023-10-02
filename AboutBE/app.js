@@ -47,6 +47,8 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+//TODO Make proper routing. This is hard to navigate
+
 app.post("/send", (req, res) => {
   const { name, email, company, message, lang, token } = req.body;
 
@@ -147,15 +149,41 @@ app.get("/projects", async (req, res) => {
       useUnifiedTopology: true,
     });
 
-    console.log("connected to db");
-
     const db = client.db("about");
     const projects = await db.collection("projects").find().toArray();
-    console.log(projects);
 
     res.status(200).json(projects);
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Something went wrong");
+  }
+});
+
+app.get("/picnames", (req, res) => {
+  try {
+    const pics = fs.readdirSync("/carouselPics");
+    pics.sort();
+    //sorting is not REALLY needed, but since all the photos except grove street have names that start with uppercase it's a good way to ensure it is always placed last
+
+    const picsArray = [];
+    pics.forEach((pic, i) => {
+      const key = i;
+      let nameEl;
+      let name;
+      const path = pic;
+      if (pic === "grove_grove.webp") {
+        nameEl = "Αν ξέρεις, ξέρεις";
+        name = "If you know, you know";
+      } else {
+        name = pic.split("_")[0];
+        nameEl = pic.split("_")[1].split(".")[0];
+      }
+      picsArray.push({ key, nameEl, name, path });
+    });
+
+    res.status(200).json(picsArray);
+  } catch (err) {
+    console.log(err);
     res.status(500).send("Something went wrong");
   }
 });
