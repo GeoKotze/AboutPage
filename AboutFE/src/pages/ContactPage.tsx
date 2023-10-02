@@ -46,7 +46,6 @@ const ContactPage = ({ lang }: Props) => {
 
   const handleCaptcha = useCallback(async () => {
     if (!executeRecaptcha) {
-      console.log("Recaptcha not yet available");
       return;
     }
     const token = await executeRecaptcha("submit");
@@ -123,7 +122,7 @@ const ContactPage = ({ lang }: Props) => {
     //This is where the magic happens
     //i had to setup a docker container with an https nodejs server just to send the email but it was a worthwhile learning experience
     //#noragerts
-    let data = JSON.stringify(post);
+    const data = JSON.stringify(post);
     axios({
       method: "post",
       url: "/send",
@@ -213,13 +212,6 @@ const ContactPage = ({ lang }: Props) => {
             }
           />
         </Form.Group>
-        {/* <Form.Group>
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey="6Lf0gGUnAAAAAH-_0Aar9uen09bSCovVc8EvxEBA"
-            onChange={captcha}
-          />
-        </Form.Group> */}
         <Button
           variant="success"
           type="submit"

@@ -3,6 +3,8 @@
 //It will have a picture of the project the title and a short description
 //at the bottom there will be two buttons one for the github repo and one for the project page
 
+import axios from "axios";
+import { useCallback, useEffect, useState } from "react";
 import { Card, Container, Row, Col } from "react-bootstrap";
 
 interface Props {
@@ -11,18 +13,31 @@ interface Props {
 }
 
 const ProjectsPage = ({ lang, setPage }: Props) => {
-  const projects = [
+  //i need to initialize the projects array so that the compiler doesn't complain
+  const [projects, setProjects] = useState([
     {
-      title: "About Page",
-      titleEl: "About Page",
-      img: "/projectPics/aboutPic.webp",
-      desc: "This is the about page you are currently on. It is a simple SPA that displays some information about me and my skills.",
-      descEl:
-        "Αυτή είναι η σελίδα στην οποία βρίσκεστε. Είναι ένα απλό SPA που εμφανίζει πληροφορίες για εμένα και τις δεξιότητες μου.",
-      github: "https://github.com/GeoKotze/AboutPage",
-      url: "https://geokotze.dev",
+      title: "",
+      titleEl: "",
+      desc: "",
+      descEl: "",
+      img: "",
+      url: "",
+      github: "",
     },
-  ];
+  ]);
+
+  const getProjects = useCallback(async () => {
+    const { data } = await axios({
+      method: "GET",
+      url: "/projects",
+    });
+    setProjects(data);
+  }, []);
+
+  useEffect(() => {
+    console.log("getting projects");
+    getProjects();
+  }, []);
 
   const changePage = (page: string) => {
     page === "https://geokotze.dev"
@@ -39,8 +54,8 @@ const ProjectsPage = ({ lang, setPage }: Props) => {
       </Row>
       <Row>
         {projects.map((project) => (
-          <Col xs={6} md={4} className="justify-content-center d-flex">
-            <Card style={{ width: "18rem" }}>
+          <Col xs={12} sm={6} md={4} className="justify-content-center d-flex">
+            <Card>
               <Card.Img
                 variant="top"
                 src={project.img}
