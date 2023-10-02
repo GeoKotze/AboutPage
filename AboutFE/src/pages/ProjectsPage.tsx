@@ -13,18 +13,17 @@ interface Props {
 }
 
 const ProjectsPage = ({ lang, setPage }: Props) => {
-  //i need to initialize the projects array so that the compiler doesn't complain
-  const [projects, setProjects] = useState([
+  const [projects, setProjects] = useState<
     {
-      title: "",
-      titleEl: "",
-      desc: "",
-      descEl: "",
-      img: "",
-      url: "",
-      github: "",
-    },
-  ]);
+      title: string;
+      titleEl: string;
+      desc: string;
+      descEl: string;
+      img: string;
+      url: string;
+      github: string;
+    }[]
+  >([]);
 
   const getProjects = useCallback(async () => {
     const { data } = await axios({
@@ -35,7 +34,6 @@ const ProjectsPage = ({ lang, setPage }: Props) => {
   }, []);
 
   useEffect(() => {
-    console.log("getting projects");
     getProjects();
   }, []);
 
