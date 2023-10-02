@@ -1,8 +1,3 @@
-//This will be the page that displays all the projects in a grid with cards
-//It will also have a button to go to the project page and it's github repo
-//It will have a picture of the project the title and a short description
-//at the bottom there will be two buttons one for the github repo and one for the project page
-
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { Card, Container, Row, Col } from "react-bootstrap";
