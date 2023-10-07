@@ -7,7 +7,7 @@ interface Props {
 const Logo = ({ logo, logoText }: Props) => {
   return (
     <>
-      <img src={logo} width="40" height="40" />
+      <img src={logo} alt="The logo of my page" width="40" height="40" />
       <span
         className="hidden-xs"
         style={{

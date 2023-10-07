@@ -52,6 +52,7 @@ const ProjectsPage = ({ lang, setPage }: Props) => {
               <Card.Img
                 variant="top"
                 src={project.img}
+                alt={project.title}
                 style={{ width: "50%", margin: "auto", paddingTop: "1rem" }}
               />
               <Card.Body>
@@ -64,12 +65,14 @@ const ProjectsPage = ({ lang, setPage }: Props) => {
                 <Card.Footer className="justify-content-between d-flex">
                   <img
                     src="urlBtn.svg"
+                    alt="url button"
                     className="btn btn-success"
                     style={{ width: "25%" }}
                     onClick={() => changePage(project.url)}
                   />
                   <img
                     src="gitBtn.svg"
+                    alt="github button"
                     className="btn btn-primary"
                     style={{ width: "25%" }}
                     onClick={() => changePage(project.github)}

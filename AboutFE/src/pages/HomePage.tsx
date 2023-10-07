@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import ProgImg from "../components/HomePage/ProgImg";
 import { TypeAnimation } from "react-type-animation";
@@ -6,13 +6,14 @@ import { TypeAnimation } from "react-type-animation";
 interface Props {
   lang: string;
   page: string;
+  reset: boolean;
+  setReset: (reset: boolean) => void;
 }
 
-const HomePage = ({ lang, page }: Props) => {
+const HomePage = ({ lang, page, reset, setReset }: Props) => {
   const [src, blur] = ProgImg("/slf-sm.webp", "/slf.webp");
 
   //Below is a hacky way to reload the text component when the language changes or the user comes back to the home page
-  const [reset, setReset] = useState(false);
 
   useEffect(() => {
     setReset(!reset);
@@ -28,9 +29,7 @@ const HomePage = ({ lang, page }: Props) => {
             //Don't judge me for this. I am not proud of it but it works
             key={reset ? 1000 : 1001}
             className="text-center autoMargin"
-            style={
-              lang === "en" ? { maxHeight: "15vh" } : { maxHeight: "20vh" }
-            }
+            style={{ height: "100%" }}
           >
             <div className="smallWidthTxtBox">
               <TypeAnimation
@@ -39,10 +38,8 @@ const HomePage = ({ lang, page }: Props) => {
                   whiteSpace: "pre-line",
                 }}
                 sequence={[
-                  lang === "en" ? "Hello!" : "Γεια!",
-                  1000,
                   lang === "en" ? "Welcome to my \n" : "Καλώς ήρθες στο \n",
-                  200,
+                  1000,
                   lang === "en"
                     ? "Welcome to my \n Portfolio"
                     : "Καλώς ήρθες στο \n Πορτφόλιο",
@@ -59,10 +56,11 @@ const HomePage = ({ lang, page }: Props) => {
               ></TypeAnimation>
             </div>
           </Col>
-          <Col sm={6} className="autoMargin" style={{ maxHeight: "100%" }}>
+          <Col sm={6} className="autoMargin">
             <img
               src={src.toString()}
               className="smallWidthImg"
+              alt="A picture of me"
               style={{
                 filter: blur ? "blur(20px)" : "none",
                 transition: blur ? "none" : "filter 0.3s ease-out",

@@ -11,15 +11,35 @@
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An about-portfolio page meant to entice potential software engineering employers."
+    />
     <title>Welcome to ME</title>
     <style>
-      body {
-        background-image: url("bg.webp");
-        background-size: auto;
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgb(76, 77, 222);
+        background: linear-gradient(
+          155deg,
+          rgba(76, 77, 222, 1) 0%,
+          rgba(91, 227, 103, 1) 50%,
+          rgba(69, 252, 212, 1) 100%
+        );
+        z-index: -10;
       }
     </style>
   </head>
   <body>
+    <!-- For some reason this helps to stop unstyled content -->
+    <script>
+      0;
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

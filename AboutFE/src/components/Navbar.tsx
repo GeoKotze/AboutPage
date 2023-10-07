@@ -174,6 +174,7 @@ const MainNavbar = ({
                         <img
                           id={`Selected`}
                           src={`/${lang}.webp`}
+                          alt={`${lang} flag`}
                           height="20px"
                           width={"20px"}
                         ></img>
@@ -195,6 +196,7 @@ const MainNavbar = ({
                               src={`/${language}.webp`}
                               height="20px"
                               width={"20px"}
+                              alt={`${languages} flag`}
                             ></img>
                             <label htmlFor={language}>
                               {languages[language]}
