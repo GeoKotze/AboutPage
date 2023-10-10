@@ -29,17 +29,23 @@ const CarouselMkr = ({ lang, setPicsShow, picsShow }: Props) => {
   return (
     <Modal
       show={picsShow}
-      className="transparent"
       size="xl"
       onHide={() => setPicsShow(false)}
+      className="transparent"
     >
       <ModalHeader closeButton />
       <Modal.Body
         style={{
           maxHeight: "80vh",
         }}
+        className="colorModeFix"
       >
-        <Carousel interval={null} indicators={false} fade>
+        <Carousel
+          interval={null}
+          indicators={false}
+          fade
+          style={{ filter: "none" }}
+        >
           {pics.map((pic) => {
             return (
               <Carousel.Item
@@ -57,7 +63,9 @@ const CarouselMkr = ({ lang, setPicsShow, picsShow }: Props) => {
                   style={{ maxHeight: "80vh", alignSelf: "center" }}
                 />
                 <Carousel.Caption>
-                  <h3>{lang === "en" ? pic.name : pic.nameEl}</h3>
+                  <span className="h3">
+                    {lang === "en" ? pic.name : pic.nameEl}
+                  </span>
                 </Carousel.Caption>
               </Carousel.Item>
             );

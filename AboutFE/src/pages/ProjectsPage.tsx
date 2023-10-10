@@ -53,7 +53,7 @@ const ProjectsPage = ({ lang, setPage }: Props) => {
                 variant="top"
                 src={project.img}
                 alt={project.title}
-                style={{ width: "50%", margin: "auto", paddingTop: "1rem" }}
+                style={{ width: "30%", margin: "auto", paddingTop: "1rem" }}
               />
               <Card.Body>
                 <Card.Title>
@@ -67,14 +67,14 @@ const ProjectsPage = ({ lang, setPage }: Props) => {
                     src="urlBtn.svg"
                     alt="url button"
                     className="btn btn-success"
-                    style={{ width: "25%" }}
+                    style={{ width: "20%" }}
                     onClick={() => changePage(project.url)}
                   />
                   <img
                     src="gitBtn.svg"
                     alt="github button"
                     className="btn btn-primary"
-                    style={{ width: "25%" }}
+                    style={{ width: "20%" }}
                     onClick={() => changePage(project.github)}
                   ></img>
                 </Card.Footer>

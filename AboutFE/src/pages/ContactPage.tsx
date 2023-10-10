@@ -1,5 +1,11 @@
 import { Form, Button, Alert } from "react-bootstrap";
-import { useState, ChangeEvent, FormEvent, useCallback } from "react";
+import {
+  useState,
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useEffect,
+} from "react";
 import axios from "axios";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
@@ -46,12 +52,15 @@ const ContactPage = ({ lang }: Props) => {
     setPost({ ...post, token: token });
   }, [executeRecaptcha]);
 
+  useEffect(() => {
+    handleCaptcha();
+  }, [handleCaptcha]);
+
   //This function is called when the user presses the submit button
   //e.preventDefault() is starting to become my favorite function
   const postForm = (e: FormEvent<HTMLFormElement>) => {
     setDisabled(true);
     e.preventDefault();
-    handleCaptcha();
 
     let message = "";
     //in case any cheeky user tries to bypass the required attributes of the form
@@ -147,7 +156,12 @@ const ContactPage = ({ lang }: Props) => {
     <>
       {/*If i ever add anothel language this will be pain*/}
       <Form onSubmit={postForm} style={{ paddingBottom: "2rem" }}>
-        <Form.Group className="mb-3" onChange={handleChange} controlId="email">
+        <Form.Group
+          className="mb-3"
+          onChange={handleChange}
+          controlId="email"
+          data-bs-theme="dark"
+        >
           <Form.Label>{lang === "en" ? `Email*` : `Email*`}</Form.Label>
           <Form.Control
             value={post.email}
