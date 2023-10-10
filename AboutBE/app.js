@@ -167,7 +167,8 @@ app.get("/picnames", (req, res) => {
 
     const picsArray = [];
     pics.forEach((pic, i) => {
-      const key = i;
+      if (pic.includes(".br")) return;
+      const key = 2000 + i;
       let nameEl;
       let name;
       const path = pic;
@@ -179,6 +180,7 @@ app.get("/picnames", (req, res) => {
         nameEl = pic.split("_")[1].split(".")[0];
       }
       picsArray.push({ key, nameEl, name, path });
+      i++;
     });
 
     res.status(200).json(picsArray);
